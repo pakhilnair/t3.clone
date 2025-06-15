@@ -1,8 +1,13 @@
+// app/page.tsx
+import { ChatArea } from "@/components/ChatArea";
+import { Sidebar } from "@/components/Sidebar";
+
+// This can now be a clean Server Component again
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-900 text-white">
-      <h1 className="text-5xl font-bold">t3.chat</h1>
-      <p className="mt-4 text-lg text-gray-400">The future of AI chat.</p>
+    <main className="flex h-screen bg-[#212121]">
+      <Sidebar />
+      <ChatArea />
     </main>
   );
 }
