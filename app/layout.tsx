@@ -19,7 +19,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {" "}
       {/* suppressHydrationWarning is recommended by next-themes */}
       <body
         className={cn("bg-background font-sans antialiased", inter.className)}

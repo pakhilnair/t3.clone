@@ -8,7 +8,8 @@ interface ChatState {
   isSidebarOpen: boolean; // <-- Add this
   addMessage: (message: { text: string; sender: "user" | "ai" }) => void;
   setModel: (model: "Gemini" | "ChatGPT" | "Claude") => void;
-  toggleSidebar: () => void; // <-- And this
+  toggleSidebar: () => void;
+  
 }
 
 // Create the store

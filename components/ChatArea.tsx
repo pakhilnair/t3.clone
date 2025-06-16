@@ -1,4 +1,3 @@
-// components/ChatArea.tsx
 "use client";
 import { useChatStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
@@ -6,24 +5,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { useTheme } from "next-themes";
 import {
   ArrowUp,
-  BookOpen,
-  BrainCircuit,
   ChevronDown,
-  Code,
   Paperclip,
-  Sparkles,
   Sun,
-  GitBranch,
-  Menu,
   Moon,
+  Settings,
+  ChevronsRight,
+  Brain,
 } from "lucide-react";
-
-const suggestionPrompts = [
-  "How does AI work?",
-  "Are black holes real?",
-  'How many Rs are in the word "strawberry"?',
-  "What is the meaning of life?",
-];
+import Link from "next/link"; // <-- Import Link
+import { fontLogo } from "@/lib/fonts"; // <-- Import our new font
+import { cn } from "@/lib/utils";
 
 export function ChatArea() {
   const { theme, setTheme } = useTheme();
@@ -37,14 +29,48 @@ export function ChatArea() {
           onClick={toggleSidebar}
           variant="ghost"
           size="icon"
-          className="absolute left-4 top-4 z-10" // Position it top-left
+          className="absolute left-4 top-4 z-10"
         >
-          <Menu className="h-6 w-6" />
+          <ChevronsRight className="h-6 w-6" />
         </Button>
       )}
+
+      {/* --- This section is only visible when the sidebar is closed --- */}
+      {!isSidebarOpen && (
+        <>
+          <Button
+            onClick={toggleSidebar}
+            variant="ghost"
+            size="icon"
+            className="absolute left-4 top-4 z-10"
+          >
+            <ChevronsRight className="h-6 w-6" />
+          </Button>
+          {/* THE NEW TITLE: Centered and visible only when sidebar is closed */}
+          <Link href="/">
+            <h1
+              className={cn(
+                "absolute top-4 left-1/2 -translate-x-1/2 text-2xl font-bold bg-gradient-to-br from-indigo-400 via-sky-400 to-teal-300 bg-clip-text text-transparent",
+                fontLogo.className
+              )}
+            >
+              T3.chat
+            </h1>
+          </Link>
+        </>
+      )}
+      {/* --- End of section --- */}
+
       {/* Top right icons */}
-      <div className="flex justify-end gap-4 p-4">
-        <GitBranch className="h-5 w-5 cursor-pointer text-gray-400 hover:text-white" />
+      <div className="flex justify-end gap-2 p-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          // onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          <Settings className="h-5 w-5 cursor-pointer" />
+        </Button>
+
         <Button
           variant="ghost"
           size="icon"
@@ -59,65 +85,49 @@ export function ChatArea() {
       {/* Welcome/Chat Content Area */}
       <div className="flex flex-1 flex-col items-center justify-center">
         <div className="w-full max-w-3xl px-4">
-          <h1 className="mb-6 text-4xl font-bold text-gray-300">
-            How can I help you, Akhil?
+          <h1 className="mb-6 text-4xl text-center font-bold text-gray-300">
+            Ask me anything!
           </h1>
 
-          <div className="mb-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <Button variant="secondary" className="bg-[#333] hover:bg-[#444]">
-              <Sparkles className="mr-2 h-4 w-4" /> Create
-            </Button>
-            <Button variant="secondary" className="bg-[#333] hover:bg-[#444]">
-              <BookOpen className="mr-2 h-4 w-4" /> Explore
-            </Button>
-            <Button variant="secondary" className="bg-[#333] hover:bg-[#444]">
-              <Code className="mr-2 h-4 w-4" /> Code
-            </Button>
-            <Button variant="secondary" className="bg-[#333] hover:bg-[#444]">
-              <BrainCircuit className="mr-2 h-4 w-4" /> Learn
-            </Button>
-          </div>
-
-          <div className="space-y-4">
-            {suggestionPrompts.map((prompt) => (
-              <div
-                key={prompt}
-                className="cursor-pointer border-b border-gray-700 py-3 text-lg text-gray-400 hover:text-white"
-              >
-                {prompt}
-              </div>
-            ))}
-          </div>
+          <p className="text-md text-center text-gray-400">
+            Talk to all Ai with the help of T3.clone! Type your message below to
+            get started.
+            <br />
+            Switch Ai model as per your liking.
+          </p>
         </div>
       </div>
 
       {/* Chat Input Section */}
-      <div className="px-4 pb-4">
+      <div className="px-4 pb-0">
         <div className="mx-auto max-w-3xl">
-          <div className="rounded-xl border border-gray-600 bg-[#2a2a2a] p-4">
+          <div className="rounded-t-xl border border-neutral-600 bg-[#2a2a2a] p-2">
             <Textarea
               placeholder="Type your message here..."
-              className="border-0 bg-transparent text-base text-white placeholder:text-gray-400 focus-visible:ring-0"
+              className="border-0 bg-transparent text-lg text-white placeholder:text-gray-400 focus-visible:ring-0"
             />
             <div className="mt-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
-                  className="flex items-center gap-1 hover:bg-[#444]"
+                  className="flex items-center gap-1 hover:bg-neutral-700 hover:text-neutral-200  border-neutral-600 px-2 py-1 text-neutral-400"
                 >
                   o4-mini <ChevronDown className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="ghost"
-                  className="flex items-center gap-1 hover:bg-[#444]"
+                  className="flex text-xs items-center gap-1 hover:bg-neutral-700 hover:text-neutral-300 rounded-3xl border border-neutral-600 px-1 text-neutral-400"
                 >
-                  <Sparkles className="h-4 w-4" /> High
+                  <Brain className="h-4 w-4" /> High
                 </Button>
-                <Button variant="ghost" className="hover:bg-[#444]">
+                <Button
+                  variant="ghost"
+                  className="flex text-xs items-center gap-1 hover:bg-neutral-700 hover:text-neutral-300 rounded-3xl border border-neutral-600 px-1 text-neutral-400"
+                >
                   <Paperclip className="h-4 w-4" /> Attach
                 </Button>
               </div>
-              <Button className="bg-[#3B242A] hover:bg-[#4a2e35]">
+              <Button className="bg-neutral-700 border border-neutral-600 hover:bg-neutral-600">
                 <ArrowUp className="h-5 w-5" />
               </Button>
             </div>
